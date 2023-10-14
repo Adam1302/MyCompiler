@@ -1,5 +1,10 @@
-// Everything after this is in red
+// Everything after this is in the colour
 val red = "\u001b[31m"
+val green = "\u001b[32m"
+val yellow = "\u001b[33m"
+val blue = "\u001b[34m"
+val cyan = "\u001b[36m"
+val white = "\u001b[37m"
 // Resets previous color codes
 val reset = "\u001b[0m"
 
@@ -11,31 +16,23 @@ fun main(args: Array<String>) {
         if (line.isBlank()) break
 
         val parser = Parser(line)
-        val expressionNode = parser.parse()
+        val abstractSyntaxTree = parser.parse()
 
-        prettyPrint(expressionNode)
+        prettyPrint(abstractSyntaxTree.root)
 
-        val tokenizer: Tokenizer = Tokenizer(line)
-        while (true) {
-            var currentToken = tokenizer.nextToken()
-            if (currentToken.type == TokenType.EOF) break;
-            print("${currentToken.type}: '${currentToken.text}'")
-            if (currentToken.value != null) {
-                print(" ${currentToken.value}")
+        if (abstractSyntaxTree.diagnostics.isNotEmpty()) {
+            print(red)
+            println("ERRORS:")
+            for (diagnostic in parser.diagnostics) {
+                println(diagnostic)
             }
-
-            println()
+            print(reset)
         }
     }
 }
 
 fun prettyPrint(syntaxNode: SyntaxNode, indent: String = "", isLast: Boolean = true) {
-    /*
-    └──
-    ├──
-    │
-     */
-    print(red) // COLOURING
+    print(cyan) // COLOURING
     val indicator = if (isLast) "└──" else "├──"
 
     print(indent + indicator + syntaxNode.kind)
@@ -67,6 +64,9 @@ class Tokenizer(val text: String) {
      private var position: Int = 0
      private val currentChar: Char
          get() = if (position >= text.length) Char.MIN_VALUE else text[position]
+    private val localDiagnostics: MutableList<String> = mutableListOf<String>()
+    val diagnostics: List<String>
+        get() = localDiagnostics
 
     private fun next() {
         ++position
@@ -116,6 +116,7 @@ class Tokenizer(val text: String) {
             next()
             return SyntaxToken(TokenType.CLOSE_PAREN, position-1, ")", null)
         } else {
+            localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")
             next() // BAD TOKEN
         }
 
@@ -150,11 +151,22 @@ class BinaryExpressionSyntaxNode(
     }
 }
 
+class AbstractSyntaxTree(
+    val root: ExpressionSyntaxNode,
+    val eofToken: SyntaxToken,
+    val diagnostics: List<String>)
+{
+
+}
+
 class Parser(val text: String) {
     private var position: Int = 0 // position in the token list
     private lateinit var tokens: List<SyntaxToken>
     private val current: SyntaxToken
         get() = peek(0)
+    private val localDiagnostics: MutableList<String> = mutableListOf<String>()
+    val diagnostics: List<String>
+        get() = localDiagnostics
 
     init {
         val tokenizer: Tokenizer = Tokenizer(text) // Tokenizer is just local, we won't need it after we have a token list
@@ -170,7 +182,9 @@ class Parser(val text: String) {
             token = tokenizer.nextToken()
         }
 
+        tokenList.add(token)
         tokens = tokenList
+        localDiagnostics.addAll(tokenizer.diagnostics)
     }
 
     private fun peek(offset: Int): SyntaxToken {
@@ -193,25 +207,33 @@ class Parser(val text: String) {
     private fun match(tokenType: TokenType): SyntaxToken {
         if (current.type == tokenType)
             return nextToken()
-
+        else
+            localDiagnostics.add("ERROR: Unexpected token of type <${current.type}> with value" +
+                    " ${current.value} at position ${current.position}, expected <${tokenType}>")
         return SyntaxToken(tokenType, current.position, "${Char.MIN_VALUE}", null)
     }
 
-    fun parse(): ExpressionSyntaxNode {
+    fun parse(): AbstractSyntaxTree {
+        val expression = parseFullExpression() // ACTUAL PARSE
+        val eofToken = match(TokenType.EOF) // ASSERT remaining token after parse is EOF token
+        return AbstractSyntaxTree(expression, eofToken, diagnostics)
+    }
+
+    fun parseNextExpression(): ExpressionSyntaxNode {
+        val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
+        return NumberExpressionSyntaxNode(numberToken)
+    }
+
+    fun parseFullExpression(): ExpressionSyntaxNode { // BASIC LEFT-TO-RIGHT PARSING forming AST
         var leftSide = parseNextExpression() // starting with a NUMBER and moving to next
         while (current.type in listOf(
                 TokenType.PLUS, TokenType.MINUS, TokenType.TIMES, TokenType.SLASH
-        )) { // this'll keep going so long as valid operators remain in the token list
+            )) { // this'll keep going so long as valid operators remain in the token list
             val operatorToken = nextToken() // we know we have an operator, so we store and move to the next token
             val rightSide = parseNextExpression()
             leftSide = BinaryExpressionSyntaxNode(operatorToken, leftSide, rightSide)
         }
 
         return leftSide
-    }
-
-    fun parseNextExpression(): ExpressionSyntaxNode {
-        val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
-        return NumberExpressionSyntaxNode(numberToken)
     }
 }
