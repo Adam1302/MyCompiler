@@ -1,9 +1,19 @@
+// Everything after this is in red
+val red = "\u001b[31m"
+// Resets previous color codes
+val reset = "\u001b[0m"
+
 fun main(args: Array<String>) {
     while (true) {
         print("> ")
 
         val line: String = readlnOrNull()?: ""
         if (line.isBlank()) break
+
+        val parser = Parser(line)
+        val expressionNode = parser.parse()
+
+        prettyPrint(expressionNode)
 
         val tokenizer: Tokenizer = Tokenizer(line)
         while (true) {
@@ -19,16 +29,42 @@ fun main(args: Array<String>) {
     }
 }
 
+fun prettyPrint(syntaxNode: SyntaxNode, indent: String = "", isLast: Boolean = true) {
+    /*
+    └──
+    ├──
+    │
+     */
+    print(red) // COLOURING
+    val indicator = if (isLast) "└──" else "├──"
+
+    print(indent + indicator + syntaxNode.kind)
+    if (syntaxNode is SyntaxToken && (syntaxNode as SyntaxToken).value != null) {
+        print(" " + (syntaxNode as SyntaxToken).value)
+    }
+    println()
+
+    val localIndent = if (isLast) "$indent     " else "${indent}|    "
+
+    for (child in syntaxNode.getChildren())
+        prettyPrint(child, localIndent, child == syntaxNode.getChildren().last())
+
+    print(reset)
+}
+
 enum class TokenType {
     NUMBER, WHITESPACE, PLUS, MINUS, TIMES, SLASH, OPEN_PAREN, CLOSE_PAREN, BAD_TOKEN, EOF, NUMBER_EXPRESSION, BINARY_EXPRESSION
 }
 
-class SyntaxToken(val type: TokenType, val position: Int, val text: String, val value: Any?) {
+class SyntaxToken(val type: TokenType, val position: Int, val text: String, val value: Any?) : SyntaxNode() {
+    override val kind: TokenType
+        get() = type
 
+    override fun getChildren(): List<SyntaxNode> = emptyList()
 }
 
 class Tokenizer(val text: String) {
-     var position: Int = 0
+     private var position: Int = 0
      private val currentChar: Char
          get() = if (position >= text.length) Char.MIN_VALUE else text[position]
 
@@ -91,6 +127,8 @@ class Tokenizer(val text: String) {
 // Once we tokenize, it's time to build the AST (Abstract Syntax Tree)
 abstract class SyntaxNode { // ABSTRACT NODE
     abstract val kind: TokenType
+
+    abstract fun getChildren(): List<SyntaxNode>
 }
 
 abstract class ExpressionSyntaxNode : SyntaxNode() {
@@ -99,6 +137,7 @@ abstract class ExpressionSyntaxNode : SyntaxNode() {
 
 class NumberExpressionSyntaxNode(val numberToken: SyntaxToken) : ExpressionSyntaxNode() {
     override val kind: TokenType = TokenType.NUMBER_EXPRESSION
+    override fun getChildren(): List<SyntaxNode> = listOf(numberToken)
 }
 class BinaryExpressionSyntaxNode(
     val operatorToken: SyntaxToken,
@@ -106,6 +145,9 @@ class BinaryExpressionSyntaxNode(
     val rightExpSyntaxNode: ExpressionSyntaxNode
 ) : ExpressionSyntaxNode() {
     override val kind: TokenType = TokenType.BINARY_EXPRESSION
+    override fun getChildren(): List<SyntaxNode> {
+        return listOf(leftExpSyntaxNode, operatorToken, rightExpSyntaxNode)
+    }
 }
 
 class Parser(val text: String) {
@@ -115,8 +157,8 @@ class Parser(val text: String) {
         get() = peek(0)
 
     init {
-        var tokenizer: Tokenizer = Tokenizer(text) // Tokenizer is just local, we won't need it after we have a token list
-        var tokenList: MutableList<SyntaxToken> = mutableListOf()
+        val tokenizer: Tokenizer = Tokenizer(text) // Tokenizer is just local, we won't need it after we have a token list
+        val tokenList: MutableList<SyntaxToken> = mutableListOf()
         lateinit var token: SyntaxToken
 
         token = tokenizer.nextToken()
@@ -141,6 +183,7 @@ class Parser(val text: String) {
 
     private fun next() { ++position }
 
+    // nextToken returns the current token and moves to the next one
     private fun nextToken(): SyntaxToken {
         val localCurrent = current
         ++position
@@ -155,11 +198,11 @@ class Parser(val text: String) {
     }
 
     fun parse(): ExpressionSyntaxNode {
-        var leftSide = parseNextExpression()
+        var leftSide = parseNextExpression() // starting with a NUMBER and moving to next
         while (current.type in listOf(
                 TokenType.PLUS, TokenType.MINUS, TokenType.TIMES, TokenType.SLASH
-        )) {
-            val operatorToken = nextToken()
+        )) { // this'll keep going so long as valid operators remain in the token list
+            val operatorToken = nextToken() // we know we have an operator, so we store and move to the next token
             val rightSide = parseNextExpression()
             leftSide = BinaryExpressionSyntaxNode(operatorToken, leftSide, rightSide)
         }
@@ -168,7 +211,7 @@ class Parser(val text: String) {
     }
 
     fun parseNextExpression(): ExpressionSyntaxNode {
-        val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize
+        val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
         return NumberExpressionSyntaxNode(numberToken)
     }
 }
