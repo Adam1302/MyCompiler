@@ -11,21 +11,30 @@ val white = "\u001b[37m"
 val reset = "\u001b[0m"
 
 fun main(args: Array<String>) {
+    var showTree: Boolean = false
     while (true) {
         print("> ")
 
         val line: String = readlnOrNull()?: ""
         if (line.isBlank()) break
 
-        val parser = Parser(line)
-        val abstractSyntaxTree = parser.parse()
+        if (line == "#showTree") {
+            showTree = !showTree
+            println(
+                if (showTree) "Showing parse trees" else "Not showing parse trees"
+            )
+            continue
+        }
 
-        prettyPrint(abstractSyntaxTree.root)
+        val abstractSyntaxTree = AbstractSyntaxTree.parse(line)
+
+        if (showTree)
+            prettyPrint(abstractSyntaxTree.root)
 
         if (abstractSyntaxTree.diagnostics.isNotEmpty()) {
             print(red)
             println("ERRORS:")
-            for (diagnostic in parser.diagnostics) {
+            for (diagnostic in abstractSyntaxTree.diagnostics) {
                 println(diagnostic)
             }
             print(reset)
@@ -67,9 +76,9 @@ class SyntaxToken(val type: TokenType, val position: Int, val text: String, val 
 }
 
 class Tokenizer(val text: String) {
-     private var position: Int = 0
-     private val currentChar: Char
-         get() = if (position >= text.length) Char.MIN_VALUE else text[position]
+    private var position: Int = 0
+    private val currentChar: Char
+        get() = if (position >= text.length) Char.MIN_VALUE else text[position]
     private val localDiagnostics: MutableList<String> = mutableListOf<String>()
     val diagnostics: List<String>
         get() = localDiagnostics
@@ -176,7 +185,12 @@ class AbstractSyntaxTree(
     val eofToken: SyntaxToken,
     val diagnostics: List<String>)
 {
-
+    companion object {
+        fun parse(text: String): AbstractSyntaxTree {
+            val parser = Parser(text)
+            return parser.parse()
+        }
+    }
 }
 
 // RECURSIVE DECENT PARSER
