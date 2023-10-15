@@ -5,6 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/AbstractSyntaxTree.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/BinaryExpressionSyntaxNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/ExpressionSyntaxNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/NumberExpressionSyntaxNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/ParanthesizedExpressionSyntaxNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxNode.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxToken.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Tokenizer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -12,6 +23,14 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Enum" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
