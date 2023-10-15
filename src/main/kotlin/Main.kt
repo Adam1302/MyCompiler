@@ -1,3 +1,5 @@
+import java.lang.Exception
+
 // Everything after this is in the colour
 val red = "\u001b[31m"
 val green = "\u001b[32m"
@@ -27,6 +29,10 @@ fun main(args: Array<String>) {
                 println(diagnostic)
             }
             print(reset)
+        } else {
+            val evaluator = Evaluator(abstractSyntaxTree.root)
+            val result = evaluator.evaluate()
+            println(result)
         }
     }
 }
@@ -89,6 +95,10 @@ class Tokenizer(val text: String) {
             }
             val numberAsText = text.substring(start, position)
             val number = numberAsText.toInt()
+
+            if (number.toString() != numberAsText)
+                localDiagnostics.add("ERROR: The number ${numberAsText} can't be represented by a 32-bit integer")
+
             return SyntaxToken(TokenType.NUMBER, start, numberAsText, number)
         } else if (currentChar.isWhitespace()) {
             val start = position
@@ -235,5 +245,30 @@ class Parser(val text: String) {
         }
 
         return leftSide
+    }
+}
+
+class Evaluator(val root: ExpressionSyntaxNode) {
+    fun evaluate(): Int = evaluateExpression(root)
+
+    private fun evaluateExpression(node: ExpressionSyntaxNode) : Int {
+        when (node) {
+            is NumberExpressionSyntaxNode -> {
+                return node.numberToken.value as Int
+            }
+            is BinaryExpressionSyntaxNode -> {
+                val left = evaluateExpression((node as BinaryExpressionSyntaxNode).leftExpSyntaxNode)
+                val right = evaluateExpression((node as BinaryExpressionSyntaxNode).rightExpSyntaxNode)
+
+                return when (node.operatorToken.type) {
+                    TokenType.PLUS -> left + right
+                    TokenType.MINUS -> left - right
+                    TokenType.TIMES -> left * right
+                    TokenType.SLASH -> left / right
+                    else -> throw Exception("Unexpected binary operator")
+                }
+            }
+            else -> throw Exception("Unexpected node <${node.kind}>")
+        }
     }
 }
