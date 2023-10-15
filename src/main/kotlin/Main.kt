@@ -56,7 +56,7 @@ fun prettyPrint(syntaxNode: SyntaxNode, indent: String = "", isLast: Boolean = t
 }
 
 enum class TokenType {
-    NUMBER, WHITESPACE, PLUS, MINUS, TIMES, SLASH, OPEN_PAREN, CLOSE_PAREN, BAD_TOKEN, EOF, NUMBER_EXPRESSION, BINARY_EXPRESSION
+    NUMBER, WHITESPACE, PLUS, MINUS, TIMES, SLASH, OPEN_PAREN, CLOSE_PAREN, BAD_TOKEN, EOF, NUMBER_EXPRESSION, BINARY_EXPRESSION, PARENTHESIZED_EXPRESSION
 }
 
 class SyntaxToken(val type: TokenType, val position: Int, val text: String, val value: Any?) : SyntaxNode() {
@@ -160,6 +160,16 @@ class BinaryExpressionSyntaxNode(
         return listOf(leftExpSyntaxNode, operatorToken, rightExpSyntaxNode)
     }
 }
+class ParanthesizedExpressionSyntaxNode(
+    val openBracketSyntaxToken: SyntaxToken,
+    val expressionSyntaxNode: ExpressionSyntaxNode,
+    val closedBracketSyntaxToken: SyntaxToken
+) : ExpressionSyntaxNode() {
+    override val kind: TokenType = TokenType.PARENTHESIZED_EXPRESSION
+    override fun getChildren(): List<SyntaxNode> {
+        return listOf(openBracketSyntaxToken, expressionSyntaxNode, closedBracketSyntaxToken)
+    }
+}
 
 class AbstractSyntaxTree(
     val root: ExpressionSyntaxNode,
@@ -169,6 +179,7 @@ class AbstractSyntaxTree(
 
 }
 
+// RECURSIVE DECENT PARSER
 class Parser(val text: String) {
     private var position: Int = 0 // position in the token list
     private lateinit var tokens: List<SyntaxToken>
@@ -224,23 +235,48 @@ class Parser(val text: String) {
     }
 
     fun parse(): AbstractSyntaxTree {
-        val expression = parseFullExpression() // ACTUAL PARSE
+        val expression = parseTerms() // ACTUAL PARSE
         val eofToken = match(TokenType.EOF) // ASSERT remaining token after parse is EOF token
         return AbstractSyntaxTree(expression, eofToken, diagnostics)
     }
 
-    fun parseNextExpression(): ExpressionSyntaxNode {
-        val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
-        return NumberExpressionSyntaxNode(numberToken)
+    // PRIMARY EXPRESSION: A LITERAL, LIKE A NUMBER, OR AN EXPRESSION ENCLOSED IN PARENTHESES
+    fun parsePrimaryExpression(): ExpressionSyntaxNode {
+        if (current.type == TokenType.OPEN_PAREN) {
+            val left = nextToken()
+            val expression = parseTerms()
+            val right = match(TokenType.CLOSE_PAREN)
+
+            return ParanthesizedExpressionSyntaxNode(left, expression, right)
+        } else {
+            val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
+            return NumberExpressionSyntaxNode(numberToken)
+        }
+
     }
 
-    fun parseFullExpression(): ExpressionSyntaxNode { // BASIC LEFT-TO-RIGHT PARSING forming AST
-        var leftSide = parseNextExpression() // starting with a NUMBER and moving to next
+    // FACTOR: * or /
+    fun parseFactor(): ExpressionSyntaxNode { // BASIC LEFT-TO-RIGHT PARSING forming AST
+        var leftSide = parsePrimaryExpression() // starting with a NUMBER and moving to next
         while (current.type in listOf(
-                TokenType.PLUS, TokenType.MINUS, TokenType.TIMES, TokenType.SLASH
-            )) { // this'll keep going so long as valid operators remain in the token list
+                TokenType.TIMES, TokenType.SLASH
+            )) { // this'll keep going so long as * or / operators remain in the token list
             val operatorToken = nextToken() // we know we have an operator, so we store and move to the next token
-            val rightSide = parseNextExpression()
+            val rightSide = parsePrimaryExpression()
+            leftSide = BinaryExpressionSyntaxNode(operatorToken, leftSide, rightSide)
+        }
+
+        return leftSide
+    }
+
+    // TERMS: + or -
+    fun parseTerms(): ExpressionSyntaxNode { // BASIC LEFT-TO-RIGHT PARSING forming AST
+        var leftSide = parseFactor() // starting with a NUMBER and moving to next
+        while (current.type in listOf(
+                TokenType.PLUS, TokenType.MINUS
+            )) { // this'll keep going so long as +/- operators remain in the token list
+            val operatorToken = nextToken() // we know we have an operator, so we store and move to the next token
+            val rightSide = parseFactor()
             leftSide = BinaryExpressionSyntaxNode(operatorToken, leftSide, rightSide)
         }
 
@@ -267,6 +303,9 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                     TokenType.SLASH -> left / right
                     else -> throw Exception("Unexpected binary operator")
                 }
+            }
+            is ParanthesizedExpressionSyntaxNode -> {
+                return evaluateExpression(node.expressionSyntaxNode)
             }
             else -> throw Exception("Unexpected node <${node.kind}>")
         }
