@@ -3,7 +3,7 @@ package codeAnalysis
 // RECURSIVE DECENT PARSER
 class Parser(val text: String) {
     private var position: Int = 0 // position in the token list
-    private lateinit var tokens: List<SyntaxToken>
+    private var tokens: List<SyntaxToken>
     private val current: SyntaxToken
         get() = peek(0)
     private val localDiagnostics: MutableList<String> = mutableListOf<String>()
@@ -11,7 +11,7 @@ class Parser(val text: String) {
         get() = localDiagnostics
 
     init {
-        val tokenizer: Tokenizer = Tokenizer(text) // Tokenizer is just local, we won't need it after we have a token list
+        val tokenizer = Tokenizer(text) // Tokenizer is just local, we won't need it after we have a token list
         val tokenList: MutableList<SyntaxToken> = mutableListOf()
         lateinit var token: SyntaxToken
 
@@ -46,7 +46,7 @@ class Parser(val text: String) {
         return localCurrent
     }
 
-    private fun match(tokenType: TokenType): SyntaxToken {
+    private fun matchToken(tokenType: TokenType): SyntaxToken {
         if (current.type == tokenType)
             return nextToken()
         else
@@ -56,8 +56,8 @@ class Parser(val text: String) {
     }
 
     fun parse(): AbstractSyntaxTree {
-        val expression = parseTerms() // ACTUAL PARSE
-        val eofToken = match(TokenType.EOF) // ASSERT remaining token after parse is EOF token
+        val expression = parseExpression() // ACTUAL PARSE
+        val eofToken = matchToken(TokenType.EOF) // ASSERT remaining token after parse is EOF token
         return AbstractSyntaxTree(expression, eofToken, diagnostics)
     }
 
@@ -66,12 +66,12 @@ class Parser(val text: String) {
         if (current.type == TokenType.OPEN_PAREN) {
             val left = nextToken()
             val expression = parseTerms()
-            val right = match(TokenType.CLOSE_PAREN)
+            val right = matchToken(TokenType.CLOSE_PAREN)
 
             return ParanthesizedExpressionSyntaxNode(left, expression, right)
         } else {
-            val numberToken = match(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
-            return NumberExpressionSyntaxNode(numberToken)
+            val numberToken = matchToken(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
+            return LiteralExpressionSyntaxNode(numberToken)
         }
 
     }
@@ -102,5 +102,9 @@ class Parser(val text: String) {
         }
 
         return leftSide
+    }
+
+    private fun parseExpression(): ExpressionSyntaxNode {
+        return parseTerms()
     }
 }

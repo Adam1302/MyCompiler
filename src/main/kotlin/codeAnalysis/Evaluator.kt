@@ -7,12 +7,12 @@ class Evaluator(val root: ExpressionSyntaxNode) {
 
     private fun evaluateExpression(node: ExpressionSyntaxNode) : Int {
         when (node) {
-            is NumberExpressionSyntaxNode -> {
-                return node.numberToken.value as Int
+            is LiteralExpressionSyntaxNode -> {
+                return node.literalToken.value as Int
             }
             is BinaryExpressionSyntaxNode -> {
-                val left = evaluateExpression((node as BinaryExpressionSyntaxNode).leftExpSyntaxNode)
-                val right = evaluateExpression((node as BinaryExpressionSyntaxNode).rightExpSyntaxNode)
+                val left = evaluateExpression(node.leftExpSyntaxNode)
+                val right = evaluateExpression(node.rightExpSyntaxNode)
 
                 return when (node.operatorToken.type) {
                     TokenType.PLUS -> left + right

@@ -1,6 +1,7 @@
 package codeAnalysis
 
-class Tokenizer(val text: String) {
+// Tokenizer is only called within the codeAnalysis package, so it is INTERNAL
+internal class Tokenizer(val text: String) {
     private var position: Int = 0
     private val currentChar: Char
         get() = if (position >= text.length) Char.MIN_VALUE else text[position]
