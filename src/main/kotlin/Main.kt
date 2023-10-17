@@ -4,17 +4,17 @@ import codeAnalysis.SyntaxNode
 import codeAnalysis.SyntaxToken
 
 // Everything after this is in the colour
-val red = "\u001b[31m"
-val green = "\u001b[32m"
-val yellow = "\u001b[33m"
-val blue = "\u001b[34m"
-val cyan = "\u001b[36m"
-val white = "\u001b[37m"
+const val RED = "\u001b[31m"
+const val GREEN = "\u001b[32m"
+const val YELLOW = "\u001b[33m"
+const val BLUE = "\u001b[34m"
+const val CYAN = "\u001b[36m"
+const val WHITE = "\u001b[37m"
 // Resets previous color codes
-val reset = "\u001b[0m"
+const val RESET = "\u001b[0m"
 
 fun main(args: Array<String>) {
-    var showTree: Boolean = false
+    var showTree = false
     while (true) {
         print("> ")
 
@@ -35,12 +35,12 @@ fun main(args: Array<String>) {
             prettyPrint(abstractSyntaxTree.root)
 
         if (abstractSyntaxTree.diagnostics.isNotEmpty()) {
-            print(red)
+            print(RED)
             println("ERRORS:")
             for (diagnostic in abstractSyntaxTree.diagnostics) {
                 println(diagnostic)
             }
-            print(reset)
+            print(RESET)
         } else {
             val evaluator = Evaluator(abstractSyntaxTree.root)
             val result = evaluator.evaluate()
@@ -50,12 +50,12 @@ fun main(args: Array<String>) {
 }
 
 fun prettyPrint(syntaxNode: SyntaxNode, indent: String = "", isLast: Boolean = true) {
-    print(cyan) // COLOURING
+    print(CYAN) // COLOURING
     val indicator = if (isLast) "└──" else "├──"
 
     print(indent + indicator + syntaxNode.kind)
-    if (syntaxNode is SyntaxToken && (syntaxNode as SyntaxToken).value != null) {
-        print(" " + (syntaxNode as SyntaxToken).value)
+    if (syntaxNode is SyntaxToken && syntaxNode.value != null) {
+        print(" " + syntaxNode.value)
     }
     println()
 
@@ -64,7 +64,7 @@ fun prettyPrint(syntaxNode: SyntaxNode, indent: String = "", isLast: Boolean = t
     for (child in syntaxNode.getChildren())
         prettyPrint(child, localIndent, child == syntaxNode.getChildren().last())
 
-    print(reset)
+    print(RESET)
 }
 
 
