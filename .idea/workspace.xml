@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Changing Tokenizer.kt currentChar checker if statement to WHEN">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/LiteralExpressionSyntaxNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/NumberExpressionSyntaxNode.kt" beforeDir="false" />
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxRules.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +66,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697593676474</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence">
+      <created>1697597104312</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697597104312</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -87,6 +91,7 @@
     <MESSAGE value="Clean-up" />
     <MESSAGE value="Clean-up 2" />
     <MESSAGE value="Changing Tokenizer.kt currentChar checker if statement to WHEN" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing Tokenizer.kt currentChar checker if statement to WHEN" />
+    <MESSAGE value="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence" />
   </component>
 </project>

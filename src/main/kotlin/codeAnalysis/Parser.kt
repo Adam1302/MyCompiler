@@ -79,7 +79,7 @@ class Parser(val text: String) {
     private fun parseExpression(parentNodePrecedence: Int = 0): ExpressionSyntaxNode {
         var left = parsePrimaryExpression()
         while (true) {
-            val currentNodePrecedence = getBinaryOperatorPrecedence(current.type)
+            val currentNodePrecedence = SyntaxRules.getBinaryOperatorPrecedence(current.type)
             if (currentNodePrecedence == 0 || currentNodePrecedence <= parentNodePrecedence) break
 
             val operatorToken = nextToken()
@@ -87,14 +87,5 @@ class Parser(val text: String) {
             left = BinaryExpressionSyntaxNode(operatorToken, left, right)
         }
         return left
-    }
-
-    companion object {
-        private fun getBinaryOperatorPrecedence(kind: TokenType): Int {
-            return when(kind) {
-                in listOf(TokenType.PLUS, TokenType.MINUS, TokenType.TIMES, TokenType.SLASH) -> 1
-                else -> 0
-            }
-        }
     }
 }
