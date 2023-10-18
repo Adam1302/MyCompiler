@@ -23,7 +23,7 @@ internal class Tokenizer(val text: String) {
         if (position >= text.length) {
             return SyntaxToken(TokenType.EOF, position, "${Char.MIN_VALUE}", null)
         }
-        else if (currentChar.isDigit()) {
+        if (currentChar.isDigit()) {
             val start = position
             while (currentChar.isDigit()) {
                 next()
@@ -42,27 +42,36 @@ internal class Tokenizer(val text: String) {
             }
             val whitespaceAsText = text.substring(start, position)
             return SyntaxToken(TokenType.WHITESPACE, start, whitespaceAsText, null)
-        } else if (currentChar == '+') {
-            next()
-            return SyntaxToken(TokenType.PLUS, position-1, "+", null)
-        } else if (currentChar == '-') {
-            next()
-            return SyntaxToken(TokenType.MINUS, position-1, "-", null)
-        } else if (currentChar == '*') {
-            next()
-            return SyntaxToken(TokenType.TIMES, position-1, "*", null)
-        } else if (currentChar == '/') {
-            next()
-            return SyntaxToken(TokenType.SLASH, position-1, "/", null)
-        } else if (currentChar == '(') {
-            next()
-            return SyntaxToken(TokenType.OPEN_PAREN, position-1, "(", null)
-        } else if (currentChar == ')') {
-            next()
-            return SyntaxToken(TokenType.CLOSE_PAREN, position-1, ")", null)
-        } else {
-            localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")
-            next() // BAD TOKEN
+        }
+        when (currentChar) {
+            '+' -> {
+                next()
+                return SyntaxToken(TokenType.PLUS, position-1, "+", null)
+            }
+            '-' -> {
+                next()
+                return SyntaxToken(TokenType.MINUS, position-1, "-", null)
+            }
+            '*' -> {
+                next()
+                return SyntaxToken(TokenType.TIMES, position-1, "*", null)
+            }
+            '/' -> {
+                next()
+                return SyntaxToken(TokenType.SLASH, position-1, "/", null)
+            }
+            '(' -> {
+                next()
+                return SyntaxToken(TokenType.OPEN_PAREN, position-1, "(", null)
+            }
+            ')' -> {
+                next()
+                return SyntaxToken(TokenType.CLOSE_PAREN, position-1, ")", null)
+            }
+            else -> {
+                localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")
+                next() // BAD TOKEN
+            }
         }
 
         return SyntaxToken(TokenType.BAD_TOKEN, position-1,
