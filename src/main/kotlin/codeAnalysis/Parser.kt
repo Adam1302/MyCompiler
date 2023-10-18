@@ -65,7 +65,7 @@ class Parser(val text: String) {
     private fun parsePrimaryExpression(): ExpressionSyntaxNode {
         if (current.type == TokenType.OPEN_PAREN) {
             val left = nextToken()
-            val expression = parseTerms()
+            val expression = parseExpression()
             val right = matchToken(TokenType.CLOSE_PAREN)
 
             return ParanthesizedExpressionSyntaxNode(left, expression, right)
@@ -76,35 +76,25 @@ class Parser(val text: String) {
 
     }
 
-    // FACTOR: * or /
-    private fun parseFactor(): ExpressionSyntaxNode { // BASIC LEFT-TO-RIGHT PARSING forming AST
-        var leftSide = parsePrimaryExpression() // starting with a NUMBER and moving to next
-        while (current.type in listOf(
-                TokenType.TIMES, TokenType.SLASH
-            )) { // this'll keep going so long as * or / operators remain in the token list
-            val operatorToken = nextToken() // we know we have an operator, so we store and move to the next token
-            val rightSide = parsePrimaryExpression()
-            leftSide = BinaryExpressionSyntaxNode(operatorToken, leftSide, rightSide)
-        }
+    private fun parseExpression(parentNodePrecedence: Int = 0): ExpressionSyntaxNode {
+        var left = parsePrimaryExpression()
+        while (true) {
+            val currentNodePrecedence = getBinaryOperatorPrecedence(current.type)
+            if (currentNodePrecedence == 0 || currentNodePrecedence <= parentNodePrecedence) break
 
-        return leftSide
+            val operatorToken = nextToken()
+            val right = parseExpression(currentNodePrecedence)
+            left = BinaryExpressionSyntaxNode(operatorToken, left, right)
+        }
+        return left
     }
 
-    // TERMS: + or -
-    private fun parseTerms(): ExpressionSyntaxNode { // BASIC LEFT-TO-RIGHT PARSING forming AST
-        var leftSide = parseFactor() // starting with a NUMBER and moving to next
-        while (current.type in listOf(
-                TokenType.PLUS, TokenType.MINUS
-            )) { // this'll keep going so long as +/- operators remain in the token list
-            val operatorToken = nextToken() // we know we have an operator, so we store and move to the next token
-            val rightSide = parseFactor()
-            leftSide = BinaryExpressionSyntaxNode(operatorToken, leftSide, rightSide)
+    companion object {
+        private fun getBinaryOperatorPrecedence(kind: TokenType): Int {
+            return when(kind) {
+                in listOf(TokenType.PLUS, TokenType.MINUS, TokenType.TIMES, TokenType.SLASH) -> 1
+                else -> 0
+            }
         }
-
-        return leftSide
-    }
-
-    private fun parseExpression(): ExpressionSyntaxNode {
-        return parseTerms()
     }
 }
