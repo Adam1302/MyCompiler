@@ -10,6 +10,14 @@ class Evaluator(val root: ExpressionSyntaxNode) {
             is LiteralExpressionSyntaxNode -> {
                 return node.literalToken.value as Int
             }
+            is UnaryExpressionSyntaxNode -> {
+                val expr = evaluateExpression(node.expSyntaxNode)
+                return when (node.operatorToken.type) {
+                    TokenType.PLUS -> expr
+                    TokenType.MINUS -> -expr
+                    else -> throw Exception("Unexpected unary operator ${node.operatorToken.text}")
+                }
+            }
             is BinaryExpressionSyntaxNode -> {
                 val left = evaluateExpression(node.leftExpSyntaxNode)
                 val right = evaluateExpression(node.rightExpSyntaxNode)
@@ -19,7 +27,7 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                     TokenType.MINUS -> left - right
                     TokenType.TIMES -> left * right
                     TokenType.SLASH -> left / right
-                    else -> throw Exception("Unexpected binary operator")
+                    else -> throw Exception("Unexpected binary operator ${node.operatorToken.text}")
                 }
             }
             is ParanthesizedExpressionSyntaxNode -> {

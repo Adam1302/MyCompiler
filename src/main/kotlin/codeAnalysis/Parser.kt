@@ -77,7 +77,16 @@ class Parser(val text: String) {
     }
 
     private fun parseExpression(parentNodePrecedence: Int = 0): ExpressionSyntaxNode {
-        var left = parsePrimaryExpression()
+        var left: ExpressionSyntaxNode
+        val unaryOperatorPrecedence = SyntaxRules.getUnaryOperatorPrecedence(current.type)
+        left = if (unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentNodePrecedence) {
+            val operatorToken = nextToken()
+            val operand = parseExpression(unaryOperatorPrecedence)
+            UnaryExpressionSyntaxNode(operatorToken, operand)
+        } else {
+            parsePrimaryExpression()
+        }
+
         while (true) {
             val currentNodePrecedence = SyntaxRules.getBinaryOperatorPrecedence(current.type)
             if (currentNodePrecedence == 0 || currentNodePrecedence <= parentNodePrecedence) break
