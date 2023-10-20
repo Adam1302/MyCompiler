@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 import java.lang.Exception
 

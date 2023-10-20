@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 class SyntaxToken(val type: TokenType, val position: Int, val text: String, val value: Any?) : SyntaxNode() {
     override val kind: TokenType

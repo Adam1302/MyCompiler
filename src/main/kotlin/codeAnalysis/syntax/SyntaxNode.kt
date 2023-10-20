@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 abstract class SyntaxNode { // ABSTRACT NODE
     abstract val kind: TokenType

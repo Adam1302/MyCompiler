@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 // RECURSIVE DECENT PARSER
 class Parser(val text: String) {
@@ -55,10 +55,10 @@ class Parser(val text: String) {
         return SyntaxToken(tokenType, current.position, "${Char.MIN_VALUE}", null)
     }
 
-    fun parse(): AbstractSyntaxTree {
+    fun parse(): SyntaxTree {
         val expression = parseExpression() // ACTUAL PARSE
         val eofToken = matchToken(TokenType.EOF) // ASSERT remaining token after parse is EOF token
-        return AbstractSyntaxTree(expression, eofToken, diagnostics)
+        return SyntaxTree(expression, eofToken, diagnostics)
     }
 
     // PRIMARY EXPRESSION: A LITERAL, LIKE A NUMBER, OR AN EXPRESSION ENCLOSED IN PARENTHESES

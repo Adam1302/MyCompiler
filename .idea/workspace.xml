@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Extracting Precedence to SyntaxRules.kt">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/UnaryExpressionSyntaxNode.kt" afterDir="false" />
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for unary operators">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxRules.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/AbstractSyntaxTree.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxTree.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/BinaryExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/BinaryExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Evaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/ExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/ExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/LiteralExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/LiteralExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/ParanthesizedExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/ParanthesizedExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxToken.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxToken.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/UnaryExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/UnaryExpressionSyntaxNode.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697597616262</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Adding support for unary operators">
+      <created>1697685136943</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697685136945</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,6 +120,7 @@
     <MESSAGE value="Changing Tokenizer.kt currentChar checker if statement to WHEN" />
     <MESSAGE value="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence" />
     <MESSAGE value="Extracting Precedence to SyntaxRules.kt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Extracting Precedence to SyntaxRules.kt" />
+    <MESSAGE value="Adding support for unary operators" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding support for unary operators" />
   </component>
 </project>

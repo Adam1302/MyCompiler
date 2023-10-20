@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 enum class TokenType {
     BAD_TOKEN, EOF, WHITESPACE,

@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 // Tokenizer is only called within the codeAnalysis package, so it is INTERNAL
 internal class Tokenizer(val text: String) {
@@ -74,7 +74,8 @@ internal class Tokenizer(val text: String) {
             }
         }
 
-        return SyntaxToken(TokenType.BAD_TOKEN, position-1,
+        return SyntaxToken(
+            TokenType.BAD_TOKEN, position-1,
             text.substring(position-1, position), null)
     }
 }

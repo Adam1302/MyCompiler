@@ -1,12 +1,12 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
-class AbstractSyntaxTree(
+class SyntaxTree(
     val root: ExpressionSyntaxNode,
     val eofToken: SyntaxToken,
     val diagnostics: List<String>)
 {
     companion object {
-        fun parse(text: String): AbstractSyntaxTree {
+        fun parse(text: String): SyntaxTree {
             val parser = Parser(text)
             return parser.parse()
         }

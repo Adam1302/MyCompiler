@@ -1,7 +1,7 @@
-import codeAnalysis.AbstractSyntaxTree
-import codeAnalysis.Evaluator
-import codeAnalysis.SyntaxNode
-import codeAnalysis.SyntaxToken
+import codeAnalysis.syntax.SyntaxTree
+import codeAnalysis.syntax.Evaluator
+import codeAnalysis.syntax.SyntaxNode
+import codeAnalysis.syntax.SyntaxToken
 
 // Everything after this is in the colour
 const val RED = "\u001b[31m"
@@ -29,20 +29,20 @@ fun main(args: Array<String>) {
             continue
         }
 
-        val abstractSyntaxTree = AbstractSyntaxTree.parse(line)
+        val syntaxTree = SyntaxTree.parse(line)
 
         if (showTree)
-            prettyPrint(abstractSyntaxTree.root)
+            prettyPrint(syntaxTree.root)
 
-        if (abstractSyntaxTree.diagnostics.isNotEmpty()) {
+        if (syntaxTree.diagnostics.isNotEmpty()) {
             print(RED)
             println("ERRORS:")
-            for (diagnostic in abstractSyntaxTree.diagnostics) {
+            for (diagnostic in syntaxTree.diagnostics) {
                 println(diagnostic)
             }
             print(RESET)
         } else {
-            val evaluator = Evaluator(abstractSyntaxTree.root)
+            val evaluator = Evaluator(syntaxTree.root)
             val result = evaluator.evaluate()
             println(result)
         }

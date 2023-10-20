@@ -1,3 +1,3 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 abstract class ExpressionSyntaxNode : SyntaxNode() {}

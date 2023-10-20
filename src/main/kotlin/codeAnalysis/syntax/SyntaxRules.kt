@@ -1,4 +1,4 @@
-package codeAnalysis
+package codeAnalysis.syntax
 
 internal class SyntaxRules {
     companion object {
