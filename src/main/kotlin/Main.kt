@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
             continue
         }
 
-        val syntaxTree = SyntaxTree.parse(line)
+        val syntaxTree = SyntaxTree.parse(line) // We parse the tokens and build a CONCRETE SYNTAX TREE
         val binder = Binder()
         val boundExpression = binder.bindExpression(syntaxTree.root)
         val diagnostics: MutableList<String> = syntaxTree.diagnostics.toMutableList()

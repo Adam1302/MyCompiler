@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for unary operators">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundBinaryExpressionNode.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundBinaryOperatorKind.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundExpressionNode.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundLiteralExpressionNode.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundNode.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundNodeKind.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundUnaryExpressionNode.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundUnaryOperatorKind.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/utils/VarTypes.kt" afterDir="false" />
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Switch to Binder logic instead of syntax">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxTree.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxTree.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697685136945</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Switch to Binder logic instead of syntax">
+      <created>1697929236323</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697929236327</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +123,7 @@
     <MESSAGE value="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence" />
     <MESSAGE value="Extracting Precedence to SyntaxRules.kt" />
     <MESSAGE value="Adding support for unary operators" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding support for unary operators" />
+    <MESSAGE value="Switch to Binder logic instead of syntax" />
+    <option name="LAST_COMMIT_MESSAGE" value="Switch to Binder logic instead of syntax" />
   </component>
 </project>

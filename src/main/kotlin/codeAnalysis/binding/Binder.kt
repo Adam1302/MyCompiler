@@ -3,6 +3,11 @@ package codeAnalysis.binding
 import codeAnalysis.syntax.*
 import utils.VarType
 
+/*
+For now, the binder takes the syntax tree and creates a more generalized tree for the evaluator
+It's like CST -> AST, or parse tree -> syntax tree
+ */
+
 internal class Binder {
     private val localDiagnostics: MutableList<String> = mutableListOf<String>()
     val diagnostics: List<String>
@@ -13,11 +18,11 @@ internal class Binder {
             TokenType.LITERAL_EXPRESSION -> bindLiteralExpression(
                 syntax as LiteralExpressionSyntaxNode
             )
-            TokenType.BINARY_EXPRESSION -> bindBinaryExpression(
-                syntax as BinaryExpressionSyntaxNode
-            )
             TokenType.UNARY_EXPRESSION -> bindUnaryExpression(
                 syntax as UnaryExpressionSyntaxNode
+            )
+            TokenType.BINARY_EXPRESSION -> bindBinaryExpression(
+                syntax as BinaryExpressionSyntaxNode
             )
             else -> throw Exception("Unexpected syntax ${syntax.kind}")
         }
@@ -25,7 +30,7 @@ internal class Binder {
 
     private fun bindLiteralExpression(syntax: LiteralExpressionSyntaxNode)
     : BoundLiteralExpressionNode {
-        val value = syntax.literalToken.value as Int? ?: 0
+        val value = syntax.literalToken.value as Int? ?: 0 // currently we can only handle integers
         return BoundLiteralExpressionNode(value)
     }
 
