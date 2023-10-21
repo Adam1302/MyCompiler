@@ -1,5 +1,6 @@
 import codeAnalysis.syntax.SyntaxTree
-import codeAnalysis.syntax.Evaluator
+import codeAnalysis.Evaluator
+import codeAnalysis.binding.Binder
 import codeAnalysis.syntax.SyntaxNode
 import codeAnalysis.syntax.SyntaxToken
 
@@ -30,19 +31,25 @@ fun main(args: Array<String>) {
         }
 
         val syntaxTree = SyntaxTree.parse(line)
+        val binder = Binder()
+        val boundExpression = binder.bindExpression(syntaxTree.root)
+        val diagnostics: MutableList<String> = syntaxTree.diagnostics.toMutableList()
+        diagnostics.addAll(
+            binder.diagnostics
+        )
 
         if (showTree)
             prettyPrint(syntaxTree.root)
 
-        if (syntaxTree.diagnostics.isNotEmpty()) {
+        if (diagnostics.isNotEmpty()) {
             print(RED)
             println("ERRORS:")
-            for (diagnostic in syntaxTree.diagnostics) {
+            for (diagnostic in diagnostics) {
                 println(diagnostic)
             }
             print(RESET)
         } else {
-            val evaluator = Evaluator(syntaxTree.root)
+            val evaluator = Evaluator(boundExpression)
             val result = evaluator.evaluate()
             println(result)
         }
