@@ -30,7 +30,7 @@ internal class Binder {
 
     private fun bindLiteralExpression(syntax: LiteralExpressionSyntaxNode)
     : BoundLiteralExpressionNode {
-        val value = syntax.literalToken.value as Int? ?: 0 // currently we can only handle integers
+        val value = syntax.value  ?: 0
         return BoundLiteralExpressionNode(value)
     }
 

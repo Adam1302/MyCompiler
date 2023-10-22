@@ -18,5 +18,13 @@ internal class SyntaxRules {
                 else -> 0
             }
         }
+
+        fun getKeywordKind(text: String): TokenType {
+            return when(text) {
+                "true" -> TokenType.TRUE_KEYWORD
+                "false" -> TokenType.FALSE_KEYWORD
+                else -> TokenType.IDENTIFIER
+            }
+        }
     }
 }

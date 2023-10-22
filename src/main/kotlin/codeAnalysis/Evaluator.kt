@@ -9,14 +9,14 @@ import codeAnalysis.binding.BoundUnaryOperatorKind
 import java.lang.Exception
 
 internal class Evaluator(val root: BoundExpressionNode) {
-    fun evaluate(): Int = evaluateExpression(root)
+    fun evaluate(): Any = evaluateExpression(root)
 
-    private fun evaluateExpression(node: BoundExpressionNode) : Int {
+    private fun evaluateExpression(node: BoundExpressionNode) : Any {
         when (node) {
             is BoundLiteralExpressionNode ->
-                return node.value as Int
+                return node.value
             is BoundUnaryExpressionNode -> {
-                val expr = evaluateExpression(node.operand)
+                val expr = evaluateExpression(node.operand) as Int
                 return when (node.operatorKind) {
                     BoundUnaryOperatorKind.IDENTITY -> expr
                     BoundUnaryOperatorKind.NEGATION -> -expr
@@ -24,8 +24,8 @@ internal class Evaluator(val root: BoundExpressionNode) {
                 }
             }
             is BoundBinaryExpressionNode -> {
-                val left = evaluateExpression(node.left)
-                val right = evaluateExpression(node.right)
+                val left = evaluateExpression(node.left) as Int
+                val right = evaluateExpression(node.right) as Int
 
                 return when (node.operator) {
                     BoundBinaryOperatorKind.ADDITION -> left + right

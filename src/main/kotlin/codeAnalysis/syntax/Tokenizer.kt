@@ -42,6 +42,14 @@ internal class Tokenizer(val text: String) {
             }
             val whitespaceAsText = text.substring(start, position)
             return SyntaxToken(TokenType.WHITESPACE, start, whitespaceAsText, null)
+        } else if (currentChar.isLetter()) {
+            val start = position;
+            while (currentChar.isLetter()) {
+                next()
+            }
+            val text = text.substring(start, position)
+            val kind = SyntaxRules.getKeywordKind(text)
+            return SyntaxToken(kind, start, text, null)
         }
         when (currentChar) {
             '+' -> {

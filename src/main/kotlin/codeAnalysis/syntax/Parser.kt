@@ -63,15 +63,23 @@ class Parser(val text: String) {
 
     // PRIMARY EXPRESSION: A LITERAL, LIKE A NUMBER, OR AN EXPRESSION ENCLOSED IN PARENTHESES
     private fun parsePrimaryExpression(): ExpressionSyntaxNode {
-        if (current.type == TokenType.OPEN_PAREN) {
-            val left = nextToken()
-            val expression = parseExpression()
-            val right = matchToken(TokenType.CLOSE_PAREN)
-
-            return ParanthesizedExpressionSyntaxNode(left, expression, right)
-        } else {
-            val numberToken = matchToken(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
-            return LiteralExpressionSyntaxNode(numberToken)
+        when (current.kind) {
+            TokenType.OPEN_PAREN -> {
+                val left = nextToken()
+                val expression = parseExpression()
+                val right = matchToken(TokenType.CLOSE_PAREN)
+                return ParanthesizedExpressionSyntaxNode(left, expression, right)
+            }
+            TokenType.FALSE_KEYWORD, TokenType.TRUE_KEYWORD -> {
+                val value = current.kind == TokenType.TRUE_KEYWORD
+                val keywordToken = nextToken()
+                // println("CURRENT: ${current.kind} VALUE: ${value}")
+                return LiteralExpressionSyntaxNode(keywordToken, value)
+            }
+            else -> {
+                val numberToken = matchToken(TokenType.NUMBER)
+                return LiteralExpressionSyntaxNode(numberToken)
+            }
         }
 
     }
