@@ -71,9 +71,8 @@ class Parser(val text: String) {
                 return ParanthesizedExpressionSyntaxNode(left, expression, right)
             }
             TokenType.FALSE_KEYWORD, TokenType.TRUE_KEYWORD -> {
-                val value = current.kind == TokenType.TRUE_KEYWORD
                 val keywordToken = nextToken()
-                // println("CURRENT: ${current.kind} VALUE: ${value}")
+                val value = keywordToken.kind == TokenType.TRUE_KEYWORD
                 return LiteralExpressionSyntaxNode(keywordToken, value)
             }
             else -> {

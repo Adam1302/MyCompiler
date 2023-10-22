@@ -2,5 +2,6 @@ package codeAnalysis.binding
 
 internal enum class BoundUnaryOperatorKind {
     IDENTITY,
-    NEGATION
+    NEGATION,
+    LOGICAL_NEGATION
 }

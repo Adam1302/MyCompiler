@@ -77,28 +77,40 @@ internal class Binder {
 
     private fun bindUnaryOperatorKind(kind: TokenType, operandType: VarType)
     : BoundUnaryOperatorKind? {
-        if (operandType != VarType.INT) return null
-
-        return when (kind) {
-            TokenType.PLUS -> BoundUnaryOperatorKind.IDENTITY
-            TokenType.MINUS -> BoundUnaryOperatorKind.NEGATION
-            else -> throw Exception("Unexpected unary operator <${kind}>")
+        if (operandType == VarType.INT) {
+            return when(kind) {
+                TokenType.PLUS -> BoundUnaryOperatorKind.IDENTITY
+                TokenType.MINUS -> BoundUnaryOperatorKind.NEGATION
+                else -> throw Exception("Error: Invalid unary operator <${kind}>")
+            }
+        } else if (operandType == VarType.BOOL) {
+            return when (kind) {
+                TokenType.BANG -> BoundUnaryOperatorKind.LOGICAL_NEGATION
+                else -> throw Exception("Unexpected unary operator <${kind}>")
+            }
         }
+        return null
     }
 
     private fun bindBinaryOperatorKind(
         kind: TokenType, leftType: VarType, rightType: VarType
     ): BoundBinaryOperatorKind? {
-        if (leftType != VarType.INT || rightType != VarType.INT) {
-            return null
+        if (leftType == VarType.INT && rightType == VarType.INT) {
+            return when (kind) {
+                TokenType.PLUS -> BoundBinaryOperatorKind.ADDITION
+                TokenType.MINUS -> BoundBinaryOperatorKind.SUBTRACTION
+                TokenType.TIMES -> BoundBinaryOperatorKind.MULTIPLICATION
+                TokenType.SLASH -> BoundBinaryOperatorKind.DIVISION
+                else -> throw Exception("Unexpected binary operator <${kind}>")
+            }
+        } else if (leftType == VarType.BOOL && rightType == VarType.BOOL) {
+            return when (kind) {
+                TokenType.AMPERSAND_DOUBLE -> BoundBinaryOperatorKind.LOGICAL_AND
+                TokenType.PIPE_DOUBLE -> BoundBinaryOperatorKind.LOGICAL_OR
+                else -> throw Exception("Unexpected binary operator <${kind}>")
+            }
         }
 
-        return when (kind) {
-            TokenType.PLUS -> BoundBinaryOperatorKind.ADDITION
-            TokenType.MINUS -> BoundBinaryOperatorKind.SUBTRACTION
-            TokenType.TIMES -> BoundBinaryOperatorKind.MULTIPLICATION
-            TokenType.SLASH -> BoundBinaryOperatorKind.DIVISION
-            else -> throw Exception("Unexpected binary operator <${kind}>")
-        }
+        return null
     }
 }

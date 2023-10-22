@@ -4,10 +4,17 @@ package codeAnalysis.syntax
 internal class Tokenizer(val text: String) {
     private var position: Int = 0
     private val currentChar: Char
-        get() = if (position >= text.length) Char.MIN_VALUE else text[position]
+        get() = peek(0)
+    private val lookaheadChar: Char
+        get() = peek(1)
     private val localDiagnostics: MutableList<String> = mutableListOf<String>()
     val diagnostics: List<String>
         get() = localDiagnostics
+
+    private fun peek(offset: Int): Char {
+        val idx = position + offset
+        return if (idx >= text.length) Char.MIN_VALUE else text[position]
+    }
 
     private fun next() {
         ++position
@@ -75,6 +82,32 @@ internal class Tokenizer(val text: String) {
             ')' -> {
                 next()
                 return SyntaxToken(TokenType.CLOSE_PAREN, position-1, ")", null)
+            }
+            '!' -> {
+                next()
+                return SyntaxToken(TokenType.BANG, position-1, "!", null)
+            }
+            '&' -> {
+                if (lookaheadChar == '&') {
+                    next()
+                    next()
+                    return SyntaxToken(
+                        TokenType.AMPERSAND_DOUBLE,
+                        position - 2,
+                        "&&", null
+                    )
+                }
+            }
+            '|' -> {
+                if (lookaheadChar == '|') {
+                    next()
+                    next()
+                    return SyntaxToken(
+                        TokenType.PIPE_DOUBLE,
+                        position - 2,
+                        "||", null
+                    )
+                }
             }
             else -> {
                 localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")

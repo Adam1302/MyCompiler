@@ -16,22 +16,25 @@ internal class Evaluator(val root: BoundExpressionNode) {
             is BoundLiteralExpressionNode ->
                 return node.value
             is BoundUnaryExpressionNode -> {
-                val expr = evaluateExpression(node.operand) as Int
+                val expr = evaluateExpression(node.operand)
                 return when (node.operatorKind) {
-                    BoundUnaryOperatorKind.IDENTITY -> expr
-                    BoundUnaryOperatorKind.NEGATION -> -expr
+                    BoundUnaryOperatorKind.IDENTITY -> expr as Int
+                    BoundUnaryOperatorKind.NEGATION -> -(expr as Int)
+                    BoundUnaryOperatorKind.LOGICAL_NEGATION -> (expr as Boolean).not()
                     else -> throw Exception("Unexpected unary operator ${node.operatorKind}")
                 }
             }
             is BoundBinaryExpressionNode -> {
-                val left = evaluateExpression(node.left) as Int
-                val right = evaluateExpression(node.right) as Int
+                val left = evaluateExpression(node.left)
+                val right = evaluateExpression(node.right)
 
                 return when (node.operator) {
-                    BoundBinaryOperatorKind.ADDITION -> left + right
-                    BoundBinaryOperatorKind.SUBTRACTION -> left - right
-                    BoundBinaryOperatorKind.MULTIPLICATION -> left * right
-                    BoundBinaryOperatorKind.DIVISION -> left / right
+                    BoundBinaryOperatorKind.ADDITION -> (left as Int) + (right as Int)
+                    BoundBinaryOperatorKind.SUBTRACTION -> (left as Int) - (right as Int)
+                    BoundBinaryOperatorKind.MULTIPLICATION -> (left as Int) * (right as Int)
+                    BoundBinaryOperatorKind.DIVISION -> (left as Int) / (right as Int)
+                    BoundBinaryOperatorKind.LOGICAL_AND -> (left as Boolean) && (right as Boolean)
+                    BoundBinaryOperatorKind.LOGICAL_OR -> (left as Boolean) || (right as Boolean)
                     else -> throw Exception("Unexpected binary operator ${node.operator}")
                 }
             }

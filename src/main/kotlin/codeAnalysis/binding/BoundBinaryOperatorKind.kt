@@ -4,5 +4,6 @@ enum class BoundBinaryOperatorKind {
     ADDITION,
     SUBTRACTION,
     MULTIPLICATION,
-    DIVISION
+    DIVISION,
+    LOGICAL_AND, LOGICAL_OR,
 }

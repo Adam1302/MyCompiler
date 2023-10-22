@@ -4,15 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding comments for the introduction of the Binder">
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for keywords 'true' and 'false'">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/LiteralExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/LiteralExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundBinaryOperatorKind.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundBinaryOperatorKind.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundUnaryOperatorKind.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundUnaryOperatorKind.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/VarTypes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/VarTypes.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697930890345</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Adding support for keywords 'true' and 'false'">
+      <created>1697937232658</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697937232658</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -136,6 +145,7 @@
     <MESSAGE value="Adding support for unary operators" />
     <MESSAGE value="Switch to Binder logic instead of syntax" />
     <MESSAGE value="Adding comments for the introduction of the Binder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding comments for the introduction of the Binder" />
+    <MESSAGE value="Adding support for keywords 'true' and 'false'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding support for keywords 'true' and 'false'" />
   </component>
 </project>
