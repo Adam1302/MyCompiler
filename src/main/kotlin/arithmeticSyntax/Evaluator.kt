@@ -1,6 +1,7 @@
 package arithmeticSyntax
 
 import java.lang.Exception
+import kotlin.math.pow
 
 class Evaluator(val root: ExpressionSyntaxNode) {
     fun evaluate(): Int = evaluateExpression(root)
@@ -27,6 +28,7 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                     TokenType.MINUS -> left - right
                     TokenType.TIMES -> left * right
                     TokenType.SLASH -> left / right
+                    TokenType.EXPONENT_ARROW -> ((left.toDouble()).pow(right).toInt())
                     else -> throw Exception("Unexpected binary operator ${node.operatorToken.text}")
                 }
             }
