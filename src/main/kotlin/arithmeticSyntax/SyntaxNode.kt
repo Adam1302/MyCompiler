@@ -1,4 +1,4 @@
-package codeAnalysis.syntax
+package arithmeticSyntax
 
 abstract class SyntaxNode { // ABSTRACT NODE
     abstract val kind: TokenType

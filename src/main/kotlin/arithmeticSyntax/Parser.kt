@@ -1,4 +1,4 @@
-package codeAnalysis.syntax
+package arithmeticSyntax
 
 // RECURSIVE DECENT PARSER
 class Parser(val text: String) {

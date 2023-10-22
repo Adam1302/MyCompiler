@@ -7,19 +7,19 @@
     <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for unary operators">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/AbstractSyntaxTree.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxTree.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/BinaryExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/BinaryExpressionSyntaxNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Evaluator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/ExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/ExpressionSyntaxNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/LiteralExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/LiteralExpressionSyntaxNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/ParanthesizedExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/ParanthesizedExpressionSyntaxNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/SyntaxToken.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxToken.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/UnaryExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/UnaryExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/BinaryExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/BinaryExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Evaluator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/ExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/ExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/LiteralExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/LiteralExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/ParanthesizedExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/ParanthesizedExpressionSyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxNode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxToken.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxToken.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxTree.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxTree.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/TokenType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Tokenizer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/UnaryExpressionSyntaxNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/UnaryExpressionSyntaxNode.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

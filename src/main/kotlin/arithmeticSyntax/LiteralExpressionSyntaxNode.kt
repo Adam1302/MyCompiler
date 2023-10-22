@@ -1,4 +1,4 @@
-package codeAnalysis.syntax
+package arithmeticSyntax
 
 class LiteralExpressionSyntaxNode(val literalToken: SyntaxToken) : ExpressionSyntaxNode() {
     override val kind: TokenType = TokenType.LITERAL_EXPRESSION

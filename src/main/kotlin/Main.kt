@@ -1,7 +1,7 @@
-import codeAnalysis.syntax.SyntaxTree
-import codeAnalysis.syntax.Evaluator
-import codeAnalysis.syntax.SyntaxNode
-import codeAnalysis.syntax.SyntaxToken
+import arithmeticSyntax.SyntaxTree
+import arithmeticSyntax.Evaluator
+import arithmeticSyntax.SyntaxNode
+import arithmeticSyntax.SyntaxToken
 
 // Everything after this is in the colour
 const val RED = "\u001b[31m"

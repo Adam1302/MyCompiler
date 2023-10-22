@@ -1,4 +1,4 @@
-package codeAnalysis.syntax
+package arithmeticSyntax
 
 // Tokenizer is only called within the codeAnalysis package, so it is INTERNAL
 internal class Tokenizer(val text: String) {
