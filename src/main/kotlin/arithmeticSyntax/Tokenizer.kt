@@ -72,6 +72,10 @@ internal class Tokenizer(val text: String) {
                 next()
                 return SyntaxToken(TokenType.EXPONENT_ARROW, position-1, "^", null)
             }
+            '%' -> {
+                next()
+                return SyntaxToken(TokenType.MODULO, position-1, "%", null)
+            }
             else -> {
                 localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")
                 next() // BAD TOKEN

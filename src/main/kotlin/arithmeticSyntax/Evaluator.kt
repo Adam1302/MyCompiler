@@ -28,6 +28,7 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                     TokenType.MINUS -> left - right
                     TokenType.TIMES -> left * right
                     TokenType.SLASH -> left / right
+                    TokenType.MODULO -> left % right
                     TokenType.EXPONENT_ARROW -> ((left.toDouble()).pow(right).toInt())
                     else -> throw Exception("Unexpected binary operator ${node.operatorToken.text}")
                 }

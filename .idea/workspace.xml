@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;">
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for '^': exponent calculations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Evaluator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" afterDir="false" />
@@ -97,7 +97,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698003869315</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;">
+      <created>1698012424071</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1698012424071</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Adding support for '^': exponent calculations">
+      <created>1698012451437</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698012451437</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,6 +133,7 @@
     <MESSAGE value="Extracting Precedence to SyntaxRules.kt" />
     <MESSAGE value="Adding support for unary operators" />
     <MESSAGE value="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;" />
+    <MESSAGE value="Adding support for '^': exponent calculations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding support for '^': exponent calculations" />
   </component>
 </project>

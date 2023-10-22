@@ -14,7 +14,7 @@ internal class SyntaxRules {
         fun getBinaryOperatorPrecedence(kind: TokenType): Int {
             return when(kind) {
                 TokenType.EXPONENT_ARROW -> 3
-                in listOf(TokenType.TIMES, TokenType.SLASH) -> 2
+                in listOf(TokenType.TIMES, TokenType.SLASH, TokenType.MODULO) -> 2
                 in listOf(TokenType.PLUS, TokenType.MINUS) -> 1
                 else -> 0
             }
