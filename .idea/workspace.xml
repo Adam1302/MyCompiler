@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for keywords 'true' and 'false'">
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Refactoring rest of Tokenizer.kt functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/Evaluator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/Binder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundBinaryOperatorKind.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundBinaryOperatorKind.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundUnaryOperatorKind.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/binding/BoundUnaryOperatorKind.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Parser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/SyntaxRules.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/TokenType.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/codeAnalysis/syntax/Tokenizer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/VarTypes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/VarTypes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxToken.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxToken.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxTree.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxTree.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,12 +39,6 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="codeAnalysis" />
-      <recent name="codeAnalysis.syntax" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -101,28 +90,49 @@
       <option name="project" value="LOCAL" />
       <updated>1697685136945</updated>
     </task>
-    <task id="LOCAL-00007" summary="Switch to Binder logic instead of syntax">
-      <created>1697929236323</created>
+    <task id="LOCAL-00007" summary="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;">
+      <created>1698003869313</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1697929236327</updated>
+      <updated>1698003869315</updated>
     </task>
-    <task id="LOCAL-00008" summary="Adding comments for the introduction of the Binder">
-      <created>1697930890344</created>
+    <task id="LOCAL-00008" summary="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;">
+      <created>1698012424071</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1697930890345</updated>
+      <updated>1698012424071</updated>
     </task>
-    <task id="LOCAL-00009" summary="Adding support for keywords 'true' and 'false'">
-      <created>1697937232658</created>
+    <task id="LOCAL-00009" summary="Adding support for '^': exponent calculations">
+      <created>1698012451437</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1697937232658</updated>
+      <updated>1698012451437</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Adding support for '%': modulo calculations">
+      <created>1698018743164</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698018743165</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Refactoring Main.kt and half of Tokenizer.kt">
+      <created>1698113964179</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698113964180</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Refactoring rest of Tokenizer.kt functions">
+      <created>1698115390824</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698115390825</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,9 +153,11 @@
     <MESSAGE value="Moving Parsing mechanism from an explicit terms/factors split to a single method that calls on operator precedence" />
     <MESSAGE value="Extracting Precedence to SyntaxRules.kt" />
     <MESSAGE value="Adding support for unary operators" />
-    <MESSAGE value="Switch to Binder logic instead of syntax" />
-    <MESSAGE value="Adding comments for the introduction of the Binder" />
-    <MESSAGE value="Adding support for keywords 'true' and 'false'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding support for keywords 'true' and 'false'" />
+    <MESSAGE value="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;" />
+    <MESSAGE value="Adding support for '^': exponent calculations" />
+    <MESSAGE value="Adding support for '%': modulo calculations" />
+    <MESSAGE value="Refactoring Main.kt and half of Tokenizer.kt" />
+    <MESSAGE value="Refactoring rest of Tokenizer.kt functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring rest of Tokenizer.kt functions" />
   </component>
 </project>

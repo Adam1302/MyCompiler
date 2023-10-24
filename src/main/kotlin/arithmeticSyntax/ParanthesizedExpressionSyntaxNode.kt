@@ -1,4 +1,4 @@
-package codeAnalysis.syntax
+package arithmeticSyntax
 
 class ParanthesizedExpressionSyntaxNode(
     val openBracketSyntaxToken: SyntaxToken,

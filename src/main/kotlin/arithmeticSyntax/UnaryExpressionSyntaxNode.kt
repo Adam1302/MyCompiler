@@ -1,4 +1,4 @@
-package codeAnalysis.syntax
+package arithmeticSyntax
 
 class UnaryExpressionSyntaxNode(
     val operatorToken: SyntaxToken,
