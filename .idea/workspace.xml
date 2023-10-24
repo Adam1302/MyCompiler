@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Refactoring Main.kt and half of Tokenizer.kt">
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Refactoring rest of Tokenizer.kt functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Tokenizer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Parser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxRules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxToken.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxToken.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxTree.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/SyntaxTree.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698113964180</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Refactoring rest of Tokenizer.kt functions">
+      <created>1698115390824</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698115390825</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,6 +157,7 @@
     <MESSAGE value="Adding support for '^': exponent calculations" />
     <MESSAGE value="Adding support for '%': modulo calculations" />
     <MESSAGE value="Refactoring Main.kt and half of Tokenizer.kt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring Main.kt and half of Tokenizer.kt" />
+    <MESSAGE value="Refactoring rest of Tokenizer.kt functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring rest of Tokenizer.kt functions" />
   </component>
 </project>

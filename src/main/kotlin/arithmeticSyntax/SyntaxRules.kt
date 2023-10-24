@@ -10,7 +10,6 @@ internal class SyntaxRules {
                 else -> 0
             }
         }
-
         fun getBinaryOperatorPrecedence(kind: TokenType): Int {
             return when(kind) {
                 TokenType.EXPONENT_ARROW -> 3

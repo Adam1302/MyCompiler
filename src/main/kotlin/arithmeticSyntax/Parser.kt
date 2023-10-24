@@ -3,7 +3,7 @@ package arithmeticSyntax
 // RECURSIVE DECENT PARSER
 class Parser(val text: String) {
     private var position: Int = 0 // position in the token list
-    private var tokens: List<SyntaxToken>
+    private lateinit var tokens: List<SyntaxToken>
     private val current: SyntaxToken
         get() = peek(0)
     private val localDiagnostics: MutableList<String> = mutableListOf<String>()
@@ -11,6 +11,10 @@ class Parser(val text: String) {
         get() = localDiagnostics
 
     init {
+        createTokenList()
+    }
+
+    private fun createTokenList() {
         val tokenizer = Tokenizer(text) // Tokenizer is just local, we won't need it after we have a token list
         val tokenList: MutableList<SyntaxToken> = mutableListOf()
         lateinit var token: SyntaxToken
@@ -27,6 +31,12 @@ class Parser(val text: String) {
         tokenList.add(token)
         tokens = tokenList
         localDiagnostics.addAll(tokenizer.diagnostics)
+    }
+
+    fun parse(): SyntaxTree {
+        val expression = parseExpression() // ACTUAL PARSE
+        val eofToken = matchToken(TokenType.EOF) // ASSERT remaining token after parse is EOF token
+        return SyntaxTree(expression, eofToken, diagnostics)
     }
 
     private fun peek(offset: Int): SyntaxToken {
@@ -46,6 +56,7 @@ class Parser(val text: String) {
         return localCurrent
     }
 
+    // GETS CURRENT TOKEN IF IT'S A CERTAIN TYPE
     private fun matchToken(tokenType: TokenType): SyntaxToken {
         if (current.type == tokenType)
             return nextToken()
@@ -55,34 +66,33 @@ class Parser(val text: String) {
         return SyntaxToken(tokenType, current.position, "${Char.MIN_VALUE}", null)
     }
 
-    fun parse(): SyntaxTree {
-        val expression = parseExpression() // ACTUAL PARSE
-        val eofToken = matchToken(TokenType.EOF) // ASSERT remaining token after parse is EOF token
-        return SyntaxTree(expression, eofToken, diagnostics)
-    }
-
     // PRIMARY EXPRESSION: A LITERAL, LIKE A NUMBER, OR AN EXPRESSION ENCLOSED IN PARENTHESES
-    private fun parsePrimaryExpression(): ExpressionSyntaxNode {
+    private fun parsePrimaryExpression(): ExpressionSyntaxNode =
         if (current.type == TokenType.OPEN_PAREN) {
-            val left = nextToken()
-            val expression = parseExpression()
-            val right = matchToken(TokenType.CLOSE_PAREN)
-
-            return ParanthesizedExpressionSyntaxNode(left, expression, right)
+            getParanthesizedExpressionSyntaxNode()
         } else {
-            val numberToken = matchToken(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
-            return LiteralExpressionSyntaxNode(numberToken)
+            getLiteralExpressionSyntaxNode()
         }
 
+    private fun getLiteralExpressionSyntaxNode(): LiteralExpressionSyntaxNode {
+        val numberToken = matchToken(TokenType.NUMBER) // if it's a number, use it, otherwise tokenize the operator
+        return LiteralExpressionSyntaxNode(numberToken)
+    }
+
+    private fun getParanthesizedExpressionSyntaxNode(): ParanthesizedExpressionSyntaxNode {
+        val left = nextToken()
+        val expression = parseExpression()
+        val right = matchToken(TokenType.CLOSE_PAREN)
+
+        return ParanthesizedExpressionSyntaxNode(left, expression, right)
     }
 
     private fun parseExpression(parentNodePrecedence: Int = 0): ExpressionSyntaxNode {
         var left: ExpressionSyntaxNode
+
         val unaryOperatorPrecedence = SyntaxRules.getUnaryOperatorPrecedence(current.type)
         left = if (unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentNodePrecedence) {
-            val operatorToken = nextToken()
-            val operand = parseExpression(unaryOperatorPrecedence)
-            UnaryExpressionSyntaxNode(operatorToken, operand)
+            getUnaryExpressionSyntaxNode(unaryOperatorPrecedence)
         } else {
             parsePrimaryExpression()
         }
@@ -91,10 +101,25 @@ class Parser(val text: String) {
             val currentNodePrecedence = SyntaxRules.getBinaryOperatorPrecedence(current.type)
             if (currentNodePrecedence == 0 || currentNodePrecedence <= parentNodePrecedence) break
 
-            val operatorToken = nextToken()
-            val right = parseExpression(currentNodePrecedence)
-            left = BinaryExpressionSyntaxNode(operatorToken, left, right)
+            left = getBinaryExpressionSyntaxNode(currentNodePrecedence, left)
         }
         return left
+    }
+
+    private fun getUnaryExpressionSyntaxNode(unaryOperatorPrecedence: Int): UnaryExpressionSyntaxNode {
+        val operatorToken = nextToken()
+        val operand = parseExpression(unaryOperatorPrecedence)
+        return UnaryExpressionSyntaxNode(operatorToken, operand)
+    }
+
+    private fun getBinaryExpressionSyntaxNode(
+        currentNodePrecedence: Int,
+        left: ExpressionSyntaxNode
+    ): ExpressionSyntaxNode {
+        var left1 = left
+        val operatorToken = nextToken()
+        val right = parseExpression(currentNodePrecedence)
+        left1 = BinaryExpressionSyntaxNode(operatorToken, left1, right)
+        return left1
     }
 }

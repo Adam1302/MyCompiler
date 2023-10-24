@@ -1,6 +1,11 @@
 package arithmeticSyntax
 
-class SyntaxToken(val type: TokenType, val position: Int, val text: String, val value: Any?) : SyntaxNode() {
+class SyntaxToken(
+    val type: TokenType,
+    val position: Int,
+    val text: String,
+    val value: Any?
+) : SyntaxNode() {
     override val kind: TokenType
         get() = type
 
