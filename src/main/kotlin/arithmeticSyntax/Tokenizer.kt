@@ -13,64 +13,32 @@ internal class Tokenizer(val text: String) {
         ++position
     }
 
-    fun nextToken(): SyntaxToken {
-        /* Starting Point:
-            We are looking for:
-                - numbers
-                - operators
-                - whitespace
-         */
+    fun nextToken(): SyntaxToken =
         if (position >= text.length) {
-            return SyntaxToken(TokenType.EOF, position, "${Char.MIN_VALUE}", null)
-        }
-        if (currentChar.isDigit()) {
-            return createNumberSyntaxToken()
+            SyntaxToken(TokenType.EOF, position, "${Char.MIN_VALUE}", null)
+        } else if (currentChar.isDigit()) {
+            createNumberSyntaxToken()
         } else if (currentChar.isWhitespace()) {
-            return createWhitespaceSyntaxToken()
-        }
-        when (currentChar) {
-            '+' -> {
-                next()
-                return SyntaxToken(TokenType.PLUS, position-1, "+", null)
-            }
-            '-' -> {
-                next()
-                return SyntaxToken(TokenType.MINUS, position-1, "-", null)
-            }
-            '*' -> {
-                next()
-                return SyntaxToken(TokenType.TIMES, position-1, "*", null)
-            }
-            '/' -> {
-                next()
-                return SyntaxToken(TokenType.SLASH, position-1, "/", null)
-            }
-            '(' -> {
-                next()
-                return SyntaxToken(TokenType.OPEN_PAREN, position-1, "(", null)
-            }
-            ')' -> {
-                next()
-                return SyntaxToken(TokenType.CLOSE_PAREN, position-1, ")", null)
-            }
-            '^' -> {
-                next()
-                return SyntaxToken(TokenType.EXPONENT_ARROW, position-1, "^", null)
-            }
-            '%' -> {
-                next()
-                return SyntaxToken(TokenType.MODULO, position-1, "%", null)
-            }
-            else -> {
-                localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")
-                next() // BAD TOKEN
-            }
+            createWhitespaceSyntaxToken()
+        } else {
+            selectOperatorToken()
         }
 
-        return SyntaxToken(
-            TokenType.BAD_TOKEN, position-1,
-            text.substring(position-1, position), null)
-    }
+    private fun selectOperatorToken(): SyntaxToken =
+        when (currentChar) {
+            '+' -> createOperatorToken(TokenType.PLUS, "+")
+            '-' -> createOperatorToken(TokenType.MINUS, "-")
+            '*' -> createOperatorToken(TokenType.TIMES, "*")
+            '/' -> createOperatorToken(TokenType.SLASH, "/")
+            '(' -> createOperatorToken(TokenType.OPEN_PAREN, "(")
+            ')' -> createOperatorToken(TokenType.CLOSE_PAREN, ")")
+            '^' -> createOperatorToken(TokenType.EXPONENT_ARROW, "^")
+            '%' -> createOperatorToken(TokenType.MODULO, "%")
+            else -> {
+                localDiagnostics.add("ERROR: bad character input: '${currentChar}' at position ${position}")
+                createOperatorToken(TokenType.BAD_TOKEN, text.substring(position - 1, position))
+            }
+        }
 
     private fun createWhitespaceSyntaxToken(): SyntaxToken {
         val start = position
@@ -93,5 +61,10 @@ internal class Tokenizer(val text: String) {
             localDiagnostics.add("ERROR: The number ${numberAsText} can't be represented by a 32-bit integer")
 
         return SyntaxToken(TokenType.NUMBER, start, numberAsText, number)
+    }
+
+    private fun createOperatorToken(type: TokenType, text: String): SyntaxToken {
+        next()
+        return SyntaxToken(type, position - 1, text, null)
     }
 }

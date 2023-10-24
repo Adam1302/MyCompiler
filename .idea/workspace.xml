@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Adding support for '%': modulo calculations">
+    <list default="true" id="b1bf0473-b876-448b-98c0-fb9b02cdc3a0" name="Changes" comment="Refactoring Main.kt and half of Tokenizer.kt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Tokenizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/arithmeticSyntax/Tokenizer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698018743165</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Refactoring Main.kt and half of Tokenizer.kt">
+      <created>1698113964179</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698113964180</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +146,7 @@
     <MESSAGE value="Refactoring calculator to more appropriately-named package &quot;arithmetic syntax&quot;" />
     <MESSAGE value="Adding support for '^': exponent calculations" />
     <MESSAGE value="Adding support for '%': modulo calculations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding support for '%': modulo calculations" />
+    <MESSAGE value="Refactoring Main.kt and half of Tokenizer.kt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring Main.kt and half of Tokenizer.kt" />
   </component>
 </project>
