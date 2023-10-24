@@ -24,24 +24,9 @@ internal class Tokenizer(val text: String) {
             return SyntaxToken(TokenType.EOF, position, "${Char.MIN_VALUE}", null)
         }
         if (currentChar.isDigit()) {
-            val start = position
-            while (currentChar.isDigit()) {
-                next()
-            }
-            val numberAsText = text.substring(start, position)
-            val number = numberAsText.toInt()
-
-            if (number.toString() != numberAsText)
-                localDiagnostics.add("ERROR: The number ${numberAsText} can't be represented by a 32-bit integer")
-
-            return SyntaxToken(TokenType.NUMBER, start, numberAsText, number)
+            return createNumberSyntaxToken()
         } else if (currentChar.isWhitespace()) {
-            val start = position
-            while (currentChar.isWhitespace()) {
-                next()
-            }
-            val whitespaceAsText = text.substring(start, position)
-            return SyntaxToken(TokenType.WHITESPACE, start, whitespaceAsText, null)
+            return createWhitespaceSyntaxToken()
         }
         when (currentChar) {
             '+' -> {
@@ -85,5 +70,28 @@ internal class Tokenizer(val text: String) {
         return SyntaxToken(
             TokenType.BAD_TOKEN, position-1,
             text.substring(position-1, position), null)
+    }
+
+    private fun createWhitespaceSyntaxToken(): SyntaxToken {
+        val start = position
+        while (currentChar.isWhitespace()) {
+            next()
+        }
+        val whitespaceAsText = text.substring(start, position)
+        return SyntaxToken(TokenType.WHITESPACE, start, whitespaceAsText, null)
+    }
+
+    private fun createNumberSyntaxToken(): SyntaxToken {
+        val start = position
+        while (currentChar.isDigit()) {
+            next()
+        }
+        val numberAsText = text.substring(start, position)
+        val number = numberAsText.toInt()
+
+        if (number.toString() != numberAsText)
+            localDiagnostics.add("ERROR: The number ${numberAsText} can't be represented by a 32-bit integer")
+
+        return SyntaxToken(TokenType.NUMBER, start, numberAsText, number)
     }
 }
