@@ -5,20 +5,20 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 class Evaluator(val root: ExpressionSyntaxNode) {
-    fun evaluate(): Int = evaluateExpression(root)
+    fun evaluate(): Double = evaluateExpression(root)
 
-    private fun evaluateExpression(node: ExpressionSyntaxNode) : Int {
+    private fun evaluateExpression(node: ExpressionSyntaxNode) : Double {
         when (node) {
             is LiteralExpressionSyntaxNode -> {
-                return node.literalToken.value as Int
+                return node.literalToken.value as Double
             }
             is UnaryExpressionSyntaxNode -> {
                 val expr = evaluateExpression(node.expSyntaxNode)
                 return when (node.operatorToken.type) {
                     TokenType.PLUS -> expr
                     TokenType.MINUS -> -expr
-                    TokenType.SQRT -> sqrt(expr.toDouble()).toInt()
-                    TokenType.SQR -> expr.toDouble().pow(2).toInt()
+                    TokenType.SQRT -> sqrt(expr)
+                    TokenType.SQR -> expr.pow(2)
                     else -> throw Exception("Unexpected unary operator ${node.operatorToken.text}")
                 }
             }
@@ -32,7 +32,7 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                     TokenType.TIMES -> left * right
                     TokenType.SLASH -> left / right
                     TokenType.MODULO -> left % right
-                    TokenType.EXPONENT_ARROW -> left.toDouble().pow(right).toInt()
+                    TokenType.EXPONENT_ARROW -> left.pow(right)
                     else -> throw Exception("Unexpected binary operator ${node.operatorToken.text}")
                 }
             }

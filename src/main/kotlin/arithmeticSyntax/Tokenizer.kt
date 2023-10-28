@@ -72,11 +72,20 @@ internal class Tokenizer(val text: String) {
         while (currentChar.isDigit()) {
             next()
         }
-        val numberAsText = text.substring(start, position)
-        val number = numberAsText.toInt()
+        if (currentChar == '.') {
+            next()
+            while (currentChar.isDigit()) {
+                next()
+            }
+        }
+
+        var numberAsText = text.substring(start, position)
+        if (!numberAsText.contains('.'))
+            numberAsText += ".0"
+        val number = numberAsText.toDouble()
 
         if (number.toString() != numberAsText)
-            localDiagnostics.add("ERROR: The number ${numberAsText} can't be represented by a 32-bit integer")
+            localDiagnostics.add("ERROR: The number ${numberAsText} can't be represented")
 
         return SyntaxToken(TokenType.NUMBER, start, numberAsText, number)
     }
