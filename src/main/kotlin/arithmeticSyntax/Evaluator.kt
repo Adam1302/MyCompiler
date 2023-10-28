@@ -2,6 +2,7 @@ package arithmeticSyntax
 
 import java.lang.Exception
 import kotlin.math.pow
+import kotlin.math.sqrt
 
 class Evaluator(val root: ExpressionSyntaxNode) {
     fun evaluate(): Int = evaluateExpression(root)
@@ -16,6 +17,8 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                 return when (node.operatorToken.type) {
                     TokenType.PLUS -> expr
                     TokenType.MINUS -> -expr
+                    TokenType.SQRT -> sqrt(expr.toDouble()).toInt()
+                    TokenType.SQR -> expr.toDouble().pow(2).toInt()
                     else -> throw Exception("Unexpected unary operator ${node.operatorToken.text}")
                 }
             }
@@ -29,7 +32,7 @@ class Evaluator(val root: ExpressionSyntaxNode) {
                     TokenType.TIMES -> left * right
                     TokenType.SLASH -> left / right
                     TokenType.MODULO -> left % right
-                    TokenType.EXPONENT_ARROW -> ((left.toDouble()).pow(right).toInt())
+                    TokenType.EXPONENT_ARROW -> left.toDouble().pow(right).toInt()
                     else -> throw Exception("Unexpected binary operator ${node.operatorToken.text}")
                 }
             }

@@ -20,6 +20,8 @@ internal class Tokenizer(val text: String) {
             createNumberSyntaxToken()
         } else if (currentChar.isWhitespace()) {
             createWhitespaceSyntaxToken()
+        } else if (currentChar.isLetter()) {
+            createWordToken()
         } else {
             selectOperatorToken()
         }
@@ -39,6 +41,22 @@ internal class Tokenizer(val text: String) {
                 createOperatorToken(TokenType.BAD_TOKEN, text.substring(position - 1, position))
             }
         }
+
+    private fun createWordToken(): SyntaxToken {
+        val start = position
+        while (currentChar.isLetter()) {
+            next()
+        }
+        val wordAsText = text.substring(start, position)
+        return when(wordAsText.lowercase()) {
+            "sqr" -> SyntaxToken(TokenType.SQR, start, "sqr", null)
+            "sqrt" -> SyntaxToken(TokenType.SQRT, start, "sqrt", null)
+            else -> {
+                localDiagnostics.add("ERROR: The characters ${wordAsText} isn't a recognized token")
+                createOperatorToken(TokenType.BAD_TOKEN, wordAsText)
+            }
+        }
+    }
 
     private fun createWhitespaceSyntaxToken(): SyntaxToken {
         val start = position
